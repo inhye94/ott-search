@@ -5,16 +5,12 @@ import MovieVideo from "../../../components/movie-video";
 const MovieDetail = ({ params: { id } }: { params: { id: number } }) => {
   return (
     <div>
-      <div>
-        <Suspense fallback={"Loading Movie Info"}>
-          <MovieInfo id={id} />
-        </Suspense>
-      </div>
-      <div>
-        <Suspense fallback={"Loading Movie Video"}>
-          <MovieVideo id={id} />
-        </Suspense>
-      </div>
+      <Suspense fallback={"Loading Movie Info"}>
+        <MovieInfo id={id} />
+      </Suspense>
+      <Suspense fallback={"Loading Movie Video"}>
+        <MovieVideo id={id} />
+      </Suspense>
     </div>
   );
 };
