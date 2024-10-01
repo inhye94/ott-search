@@ -1,0 +1,32 @@
+.card {
+  width: 50%;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.card img {
+  border-radius: 12px;
+  filter: brightness(70%);
+  transition: filter 150ms ease-in-out;
+}
+
+.card img:hover {
+  filter: brightness(100%);
+}
+
+.card a {
+  display: inline-block;
+  margin: 12px 0;
+  font-size: 18px;
+  font-weight: 500;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    width: 25%;
+  }
+}

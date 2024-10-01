@@ -24,6 +24,7 @@
 
 .nav li {
   transition: all 150ms ease-in-out;
+  white-space: nowrap;
 }
 
 .nav li:hover {
