@@ -1,4 +1,4 @@
-import { API_URL } from "../app/(Home)/page";
+import { API_URL } from "../app/(home)/page";
 
 const getMovie = async (id: number) => {
   try {

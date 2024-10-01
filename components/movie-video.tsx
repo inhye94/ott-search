@@ -1,13 +1,12 @@
-import { API_URL } from "../app/(Home)/page";
+import { API_URL } from "../app/(home)/page";
 
 const getVideos = async (id: number) => {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-  throw new Error("Something is broken!");
-  // try {
-  //   return fetch(`${API_URL}/${id}/videos`).then((res) => res.json());
-  // } catch (error) {
-  //   console.error(errormassage);
-  // }
+  try {
+    return fetch(`${API_URL}/${id}/videos`).then((res) => res.json());
+  } catch (error) {
+    console.error(error.massage);
+    throw Error("Movie video broken");
+  }
 };
 
 const MovieVideo = async ({ id }: { id: number }) => {
