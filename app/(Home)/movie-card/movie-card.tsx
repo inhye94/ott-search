@@ -24,7 +24,9 @@ const MovieCard = ({ id, poster_path, title }: MovieCardPropsType) => {
         alt={`${poster_path}의 포스터`}
         onClick={pushRouter}
       />
-      <Link href={`/movies/${id}`}>{title}</Link>
+      <Link prefetch href={`/movies/${id}`}>
+        {title}
+      </Link>
     </article>
   );
 };
