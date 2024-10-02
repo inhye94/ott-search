@@ -2,7 +2,7 @@ import { API_URL } from "../../app/(home)/page";
 
 import styles from "./movie-info.module.css";
 
-const getMovie = async (id: number) => {
+export const getMovie = async (id: number) => {
   try {
     return fetch(`${API_URL}/${id}`).then((res) => res.json());
   } catch (error) {
