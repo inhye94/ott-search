@@ -2,12 +2,17 @@ import { API_URL } from "../../app/constants";
 import styles from "./movie-video.module.css";
 
 const getVideos = async (id: number) => {
-  try {
-    return fetch(`${API_URL}/${id}/videos`).then((res) => res.json());
-  } catch (error) {
-    console.error(error.massage);
-    throw Error("Movie video broken");
-  }
+  return fetch(`${API_URL}/${id}/videos`)
+    .then((res) => {
+      if (!res.ok) {
+        throw Error(`${res.status} Error`);
+      }
+
+      return res.json();
+    })
+    .catch((error) => {
+      console.error(error.message);
+    });
 };
 
 const MovieVideo = async ({ id }: { id: number }) => {

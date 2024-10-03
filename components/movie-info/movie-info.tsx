@@ -2,11 +2,17 @@ import { API_URL } from "../../app/constants";
 import styles from "./movie-info.module.css";
 
 export const getMovie = async (id: number) => {
-  try {
-    return fetch(`${API_URL}/${id}`).then((res) => res.json());
-  } catch (error) {
-    console.error(error.massage);
-  }
+  return fetch(`${API_URL}/${id}`)
+    .then((res) => {
+      if (!res.ok) {
+        throw Error(`${res.status} Error`);
+      }
+
+      return res.json();
+    })
+    .catch((error) => {
+      console.error(error.massage);
+    });
 };
 
 const MovieInfo = async ({ id }: { id: number }) => {

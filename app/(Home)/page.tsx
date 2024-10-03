@@ -13,11 +13,17 @@ const getMovies = async () => {
   console.log("Fetching!");
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  try {
-    return fetch(API_URL).then((res) => res.json());
-  } catch (error) {
-    console.error(error.massage);
-  }
+  return fetch(API_URL)
+    .then((res) => {
+      if (!res.ok) {
+        throw Error(`${res.status} Error`);
+      }
+
+      return res.json();
+    })
+    .catch((error) => {
+      console.error(error.massage);
+    });
 };
 
 export default async function HomePage() {
