@@ -1,0 +1,46 @@
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  margin-bottom: 12px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 300ms ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #999;
+  border-radius: 12px;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.back {
+  padding: 12px;
+  overflow: auto;
+  transform: rotateY(180deg);
+  background-color: black;
+}

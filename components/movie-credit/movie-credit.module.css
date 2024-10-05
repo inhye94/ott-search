@@ -1,0 +1,36 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  padding: 48px 24px;
+  margin: 0 auto;
+}
+
+.card {
+  border: 1px solid #999;
+  border-radius: 12px;
+  overflow: hidden;
+  filter: brightness(70%);
+  transition: filter 150ms ease-in-out;
+}
+
+.card:hover {
+  filter: brightness(100%);
+}
+
+.card dl {
+  padding: 8px;
+}
+
+.card dd {
+  font-size: 14px;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.character {
+  color: #999;
+}
