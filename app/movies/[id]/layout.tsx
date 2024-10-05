@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import MovieInfo from "../../../components/movie-info";
-import { MovieNavigation } from "../../../components/navigation";
 import { getMovie } from "../../../components/movie-info/movie-info";
 
 export interface ParamsType {
@@ -28,8 +27,6 @@ export default function MovieLayout({
       <Suspense fallback={"Loading Movie Info"}>
         <MovieInfo id={id} />
       </Suspense>
-
-      <MovieNavigation id={id} />
 
       {children}
     </div>

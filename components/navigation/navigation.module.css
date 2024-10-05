@@ -5,7 +5,7 @@
   z-index: 100;
   transform: translateX(-50%);
   width: 80%;
-  max-width: 400px;
+  max-width: 600px;
   padding: 16px 32px;
   border-radius: 100px;
   background-color: rgba(0, 0, 0, 0.45);
@@ -15,19 +15,27 @@
   backdrop-filter: blur(12px);
 }
 
-.nav ul {
+.nav.local {
+  position: sticky;
+}
+
+.nav ul,
+.nav.local {
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 32px;
 }
 
-.nav li {
-  transition: all 150ms ease-in-out;
+.nav li,
+.nav.local button {
+  text-transform: uppercase;
   white-space: nowrap;
+  transition: all 150ms ease-in-out;
 }
 
-.nav li:hover {
+.nav li:hover,
+.nav.local button:hover {
   transform: scale(1.2);
 }
 
