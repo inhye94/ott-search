@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import styles from "./navigation.module.css";
 
-const Navigation = () => {
+export function Navigation() {
   const path = usePathname();
 
   return (
@@ -21,6 +21,4 @@ const Navigation = () => {
       </ul>
     </nav>
   );
-};
-
-export default Navigation;
+}

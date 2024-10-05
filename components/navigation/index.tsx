@@ -1,2 +1,4 @@
-import Navigation from "./navigation";
-export default Navigation;
+import { Navigation } from "./navigation";
+import { MovieNavigation } from "./movie-navigation/movie-navigation";
+
+export { Navigation, MovieNavigation };
