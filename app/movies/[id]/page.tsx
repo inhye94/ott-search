@@ -1,64 +1,38 @@
-"use client";
-
 import { Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import MovieVideo from "../../../components/movie-video";
 import MovieCreditCard from "../../../components/movie-credit";
 import MovieProvider from "../../../components/movie-provider";
 import MovieSimilar from "../../../components/movie-similar";
 
-import styles from "../../../components/navigation/navigation.module.css";
+import MovieNav, { MenuItemType } from "./movie-nav";
 
 interface MoviePagePropsType {
   params: { id: number };
+  searchParams: { tab: string };
 }
 
-const MoviePage = ({ params: { id } }: MoviePagePropsType) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentTab = searchParams.get("tab");
+const menus: MenuItemType[] = [
+  { id: 1, text: "videos", url: "videos" },
+  { id: 2, text: "credits", url: "credits" },
+  { id: 3, text: "providers", url: "providers" },
+  { id: 4, text: "similars", url: "similars" },
+];
 
-  const activeTab = (tab: string) => {
-    router.push(`?tab=${tab}`);
-  };
-
+const MoviePage = ({
+  params: { id },
+  searchParams: { tab },
+}: MoviePagePropsType) => {
   return (
     <>
-      <nav className={`${styles.nav} ${styles.local}`}>
-        <h3 className="visually-hidden">탭 메뉴</h3>
-        <button
-          className={currentTab === "videos" ? styles.active : ""}
-          onClick={() => activeTab("videos")}
-        >
-          videos
-        </button>
-        <button
-          className={currentTab === "credits" ? styles.active : ""}
-          onClick={() => activeTab("credits")}
-        >
-          credits
-        </button>
-        <button
-          className={currentTab === "providers" ? styles.active : ""}
-          onClick={() => activeTab("providers")}
-        >
-          providers
-        </button>
-        <button
-          className={currentTab === "similars" ? styles.active : ""}
-          onClick={() => activeTab("similars")}
-        >
-          similars
-        </button>
-      </nav>
+      <MovieNav menus={menus} />
 
       <section>
         <h3 className="visually-hidden">탭 콘텐츠</h3>
-        <Suspense fallback={`Loading Movie ${currentTab}...`}>
-          {currentTab === "videos" && <MovieVideo id={id} />}
-          {currentTab === "credits" && <MovieCreditCard id={id} />}
-          {currentTab === "providers" && <MovieProvider id={id} />}
-          {currentTab === "similars" && <MovieSimilar id={id} />}
+        <Suspense fallback={`Loading Movie ${tab}...`}>
+          {tab === "videos" && <MovieVideo id={id} />}
+          {tab === "credits" && <MovieCreditCard id={id} />}
+          {tab === "providers" && <MovieProvider id={id} />}
+          {tab === "similars" && <MovieSimilar id={id} />}
         </Suspense>
       </section>
     </>
