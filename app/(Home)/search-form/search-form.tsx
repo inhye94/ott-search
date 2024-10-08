@@ -3,7 +3,7 @@
 import { Suspense, useCallback, useRef, useState } from "react";
 
 import styles from "./search-form.module.css";
-import { axiosInstance } from "../../../api/tmdbDATA/client";
+import { axiosInstance } from "../../../src/api/tmdbDATA/client";
 import { debounce } from "lodash";
 import SearchResult from "./search-result";
 

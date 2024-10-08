@@ -31,12 +31,17 @@ const SearchResult = ({ results, keyword }) => {
           <li key={result.id} className={styles.item}>
             <article className={styles.card}>
               <div className={styles.left}>
-                <img
-                  src={
-                    process.env.NEXT_PUBLIC_TMDB_IMAGE_URL + result.poster_path
-                  }
-                  alt={result.name}
-                />
+                {result.poster_path ? (
+                  <img
+                    src={
+                      process.env.NEXT_PUBLIC_TMDB_IMAGE_URL +
+                      result.poster_path
+                    }
+                    alt={result.name}
+                  />
+                ) : (
+                  <div>no poster</div>
+                )}
               </div>
 
               <div className={styles.right}>
