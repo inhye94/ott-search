@@ -12,9 +12,11 @@ interface MovieCardPropsType {
 }
 
 const MovieCard = ({ id, poster_path, title }: MovieCardPropsType) => {
+  const detailLink = `/movies/${id}?tab=videos`;
+
   const router = useRouter();
   const pushRouter = () => {
-    router.push(`/movies/${id}`);
+    router.push(detailLink);
   };
 
   return (
@@ -24,7 +26,7 @@ const MovieCard = ({ id, poster_path, title }: MovieCardPropsType) => {
         alt={`${poster_path}의 포스터`}
         onClick={pushRouter}
       />
-      <Link prefetch href={`/movies/${id}`}>
+      <Link prefetch href={detailLink}>
         {title}
       </Link>
     </article>
