@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { Suspense, useCallback, useRef, useState } from "react";
 
 import styles from "./search-form.module.css";
 import { axiosInstance } from "../../../api/tmdbDATA/client";
 import { debounce } from "lodash";
+import SearchResult from "./search-result";
 
 const getSearchResult = async (keyword: string) => {
   return axiosInstance
@@ -35,6 +36,7 @@ const SearchForm = () => {
   const input = useRef<HTMLInputElement>(null);
   const [text, setText] = useState<string>("");
   const [results, setResults] = useState([]);
+  const [active, setActive] = useState<boolean>(false);
 
   const debounceUpdate = useCallback(
     debounce(async (keyword: string) => {
@@ -44,40 +46,31 @@ const SearchForm = () => {
   );
 
   const updateResults = async () => {
-    await debounceUpdate(input.current.value);
+    await debounceUpdate(input.current.value.trim());
   };
 
   return (
-    <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-      <input
-        ref={input}
-        className={styles.input}
-        type="text"
-        placeholder="영화, 드라마 검색"
-        onChange={() => setText(input.current.value)}
-        onInput={updateResults}
-        value={text}
-      />
+    <>
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+        <input
+          ref={input}
+          className={styles.input}
+          type="text"
+          placeholder="영화, 드라마 검색"
+          onChange={() => setText(input.current.value)}
+          onFocus={() => setActive(true)}
+          onBlur={() => setActive(false)}
+          onInput={updateResults}
+          value={text}
+        />
+      </form>
 
-      <ul>
-        {results.map((item) => (
-          <li key={item.id}>
-            <article>
-              <img
-                src={process.env.NEXT_PUBLIC_TMDB_IMAGE_URL + item.poster_path}
-                alt={item.name}
-              />
-              <h3>
-                {item.name || item.title} (
-                {item.original_name || item.original_title})
-              </h3>
-              <p>{item.overview}</p>
-              <p>{item.media_type}</p>
-            </article>
-          </li>
-        ))}
-      </ul>
-    </form>
+      <Suspense fallback={"Loading search results..."}>
+        {(active || results.length > 0) && (
+          <SearchResult keyword={input.current.value} results={results} />
+        )}
+      </Suspense>
+    </>
   );
 };
 
