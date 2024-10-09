@@ -1,4 +1,4 @@
-import { API_URL } from "../../app/constants";
+import { API_URL } from "../../../app/constants";
 import FlipCard from "../flip-card";
 
 import styles from "./movie-similar.module.css";

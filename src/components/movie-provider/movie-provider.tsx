@@ -1,4 +1,4 @@
-import { API_URL } from "../../app/constants";
+import { API_URL } from "../../../app/constants";
 import ProviderCard from "./provider-card/provider-card";
 
 import styles from "./movie-provider.module.css";
