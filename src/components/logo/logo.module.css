@@ -1,0 +1,7 @@
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: color 150ms ease-in-out;
+  white-space: nowrap;
+}

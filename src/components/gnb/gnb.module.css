@@ -1,0 +1,37 @@
+.gnb {
+  border-bottom: 1px solid #efefef;
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+}
+
+.layout {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.left {
+  margin-right: auto;
+}
+
+.left a,
+.right a {
+  margin-right: auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: #aaa;
+  transition: color 150ms ease-in-out;
+  word-break: keep-all;
+}
+
+.left a:hover,
+.right a:hover {
+  color: var(--color-brand);
+}
