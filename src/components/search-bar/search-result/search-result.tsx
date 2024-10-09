@@ -47,7 +47,7 @@ const SearchResult = ({ keyword, isActive }) => {
     router.push(`/movies/${id}?tab=videos`);
   }, []);
 
-  if (!isActive && results?.length === 0) return;
+  if ((!isActive && results?.length === 0) || !results) return;
 
   return (
     <ul className={styles.list}>
