@@ -1,52 +1,16 @@
-import classNames from "classnames";
-import { axiosInstance } from "../../../../src/api/tmdbDATA/client";
 import ContentsProvider from "../../../../src/components/contents-provider";
 import Layout from "../../../../src/components/layout";
 import Tag from "../../../../src/components/tag";
 
-import { getYear } from "../../../../src/utils/date";
+import { useTMDB } from "../../../../src/api/tmdbDATA/useTMDB";
 
-import styles from "./page.module.css";
-
-const getTvInfo = async (id: number) => {
-  return axiosInstance
-    .get(`tv/${id}`, { params: { language: "ko" } })
-    .then((res) => {
-      const { method, url } = res.config;
-      const { status } = res;
-
-      if (status !== 200) {
-        throw Error(
-          `🚨 [API - ERROR] ${method?.toUpperCase()} ${url} | status: ${status}`
-        );
-      }
-
-      return res.data;
-    })
-    .catch((error) => console.log(error.message));
-};
-
-const getProvider = async (id: number) => {
-  return axiosInstance
-    .get(`tv/${id}/watch/providers`, { params: { language: "ko" } })
-    .then((res) => {
-      const { method, url } = res.config;
-      const { status } = res;
-
-      if (status !== 200) {
-        throw Error(
-          `🚨 [API - ERROR] ${method?.toUpperCase()} ${url} | status: ${status}`
-        );
-      }
-
-      return res.data?.results?.KR;
-    })
-    .catch((error) => console.log(error.message));
-};
+import styles from "../page.module.css";
 
 const TvPage = async ({ params: { id } }: { params: { id: number } }) => {
+  const { getTvInfo, getTvProvider } = useTMDB();
+
   const info = await getTvInfo(id);
-  const providers = await getProvider(id);
+  const providers = await getTvProvider(id);
 
   return (
     <article>
@@ -66,19 +30,13 @@ const TvPage = async ({ params: { id } }: { params: { id: number } }) => {
 
           <img
             className={styles.backdrop}
-            src={
-              process.env.NEXT_PUBLIC_TMDB_IMAGE_URL +
-              (info.backdrop_path || info.poster_path)
-            }
+            src={info.backdrop_path}
             alt={info.name}
           />
 
           <div className={styles.info}>
             <div className={styles.left}>
-              <img
-                src={process.env.NEXT_PUBLIC_TMDB_IMAGE_URL + info.poster_path}
-                alt={info.name}
-              />
+              <img src={info.poster_path} alt={info.name} />
             </div>
 
             <div className={styles.right}>
@@ -87,11 +45,11 @@ const TvPage = async ({ params: { id } }: { params: { id: number } }) => {
                 {info.adult && <Tag color="red">청소년 관람불가</Tag>}
               </div>
 
-              <h5 className={styles.name}>{info.name}</h5>
+              <h5 className={styles.name}>{info.title}</h5>
 
               <p className={styles.release}>
-                <span>{info.original_name}</span>
-                <span>{getYear(info.first_air_date)}</span>
+                <span>{info.original_title}</span>
+                <span>{info.release_year}</span>
                 <span>총 {info.number_of_episodes}편</span>
               </p>
 
@@ -110,10 +68,7 @@ const TvPage = async ({ params: { id } }: { params: { id: number } }) => {
                 {info.networks.map((streaming) => (
                   <img
                     key={streaming.id}
-                    src={
-                      process.env.NEXT_PUBLIC_TMDB_IMAGE_URL +
-                      streaming.logo_path
-                    }
+                    src={streaming.logo_path}
                     alt={streaming.name}
                   />
                 ))}
@@ -137,16 +92,6 @@ const TvPage = async ({ params: { id } }: { params: { id: number } }) => {
       </section>
     </article>
   );
-};
-
-const getProviderType = (type) => {
-  const object = {
-    flatrate: "OTT",
-    buy: "구매처",
-    rent: "대여",
-  };
-
-  return object[type];
 };
 
 export default TvPage;

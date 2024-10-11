@@ -1,36 +1,12 @@
 import styles from "./search-result.module.css";
 import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../../api/tmdbDATA/client";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
-
-const getSearchResult = async (keyword: string) => {
-  return axiosInstance
-    .get(`search/multi`, {
-      params: {
-        query: keyword,
-        include_adult: false,
-        language: "ko",
-        page: 1,
-      },
-    })
-    .then((res) => {
-      const { method, url } = res.config;
-      const { status } = res;
-
-      if (status !== 200) {
-        throw Error(
-          `🚨 [API - ERROR] ${method?.toUpperCase()} ${url} | status: ${status}`
-        );
-      }
-
-      return res.data.results;
-    })
-    .catch((error) => console.log(error.message));
-};
+import { useTMDB } from "../../../api/tmdbDATA/useTMDB";
 
 const SearchResult = ({ keyword, isActive }) => {
   const router = useRouter();
+  const { getSearchResult } = useTMDB();
 
   const {
     isPending,
@@ -39,12 +15,15 @@ const SearchResult = ({ keyword, isActive }) => {
   } = useQuery({
     queryKey: ["search", keyword],
     queryFn: async () => {
-      return getSearchResult(keyword);
+      return getSearchResult({ query: keyword, page: 1 });
     },
   });
 
-  const moveToDetail = useCallback((id: number) => {
-    router.push(`/movies/${id}?tab=videos`);
+  const moveToDetail = useCallback((result) => {
+    const { id, media_type } = result;
+
+    router.push(`/${id}/${media_type}/?tab=videos`);
+    // router.push(`/movies/${id}?tab=videos`);
   }, []);
 
   if ((!isActive && results?.length === 0) || !results) return;
@@ -73,30 +52,21 @@ const SearchResult = ({ keyword, isActive }) => {
           <li key={result.id} className={styles.item}>
             <article
               className={styles.card}
-              onClick={() => moveToDetail(result.id)}
+              onClick={() => moveToDetail(result)}
             >
               <div className={styles.left}>
-                {result.poster_path || result.profile_path ? (
-                  <img
-                    src={
-                      process.env.NEXT_PUBLIC_TMDB_IMAGE_URL +
-                      (result.poster_path || result.profile_path)
-                    }
-                    alt={result.name}
-                  />
+                {result.poster_path ? (
+                  <img src={result.poster_path} alt={result.name} />
                 ) : (
                   <div>no poster</div>
                 )}
               </div>
               <div className={styles.right}>
-                <h4>{result.name || result.title}</h4>
-                <h5>{result.original_name || result.original_title}</h5>
+                <h4>{result.title}</h4>
+                <h5>{result.original_title}</h5>
                 <p>
                   <span>{getMedia(result.media_type)}</span>
-                  <span>
-                    {getYear(result.first_air_date || result.release_date)}
-                    {getWork(result.known_for)}
-                  </span>
+                  <span>{result.release_year}</span>
                 </p>
               </div>
             </article>
@@ -106,26 +76,13 @@ const SearchResult = ({ keyword, isActive }) => {
   );
 };
 
-const getYear = (date) => {
-  if (!date) return;
-
-  return date.split("-")[0];
-};
-
 const getMedia = (media) => {
   const mediaObject = {
     tv: "tv",
     movie: "영화",
-    person: "인물",
   };
 
   return mediaObject[media];
-};
-
-const getWork = (works) => {
-  if (!works) return;
-
-  return `대표작 - ${works.map((work) => work.title || work.name).join(", ")}`;
 };
 
 export default SearchResult;

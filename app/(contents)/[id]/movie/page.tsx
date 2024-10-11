@@ -1,52 +1,16 @@
-import classNames from "classnames";
-import { axiosInstance } from "../../../../src/api/tmdbDATA/client";
 import ContentsProvider from "../../../../src/components/contents-provider";
 import Layout from "../../../../src/components/layout";
 import Tag from "../../../../src/components/tag";
 
-import { getYear } from "../../../../src/utils/date";
+import { useTMDB } from "../../../../src/api/tmdbDATA/useTMDB";
 
-import styles from "./page.module.css";
-
-const getMovieInfo = async (id: number) => {
-  return axiosInstance
-    .get(`movie/${id}`, { params: { language: "ko" } })
-    .then((res) => {
-      const { method, url } = res.config;
-      const { status } = res;
-
-      if (status !== 200) {
-        throw Error(
-          `🚨 [API - ERROR] ${method?.toUpperCase()} ${url} | status: ${status}`
-        );
-      }
-
-      return res.data;
-    })
-    .catch((error) => console.log(error.message));
-};
-
-const getProvider = async (id: number) => {
-  return axiosInstance
-    .get(`movie/${id}/watch/providers`, { params: { language: "ko" } })
-    .then((res) => {
-      const { method, url } = res.config;
-      const { status } = res;
-
-      if (status !== 200) {
-        throw Error(
-          `🚨 [API - ERROR] ${method?.toUpperCase()} ${url} | status: ${status}`
-        );
-      }
-
-      return res.data?.results?.KR;
-    })
-    .catch((error) => console.log(error.message));
-};
+import styles from "../page.module.css";
 
 const MoviePage = async ({ params: { id } }: { params: { id: number } }) => {
+  const { getMovieInfo, getMovieProvider } = useTMDB();
+
   const info = await getMovieInfo(id);
-  const providers = await getProvider(id);
+  const providers = await getMovieProvider(id);
 
   return (
     <article>
@@ -66,19 +30,13 @@ const MoviePage = async ({ params: { id } }: { params: { id: number } }) => {
 
           <img
             className={styles.backdrop}
-            src={
-              process.env.NEXT_PUBLIC_TMDB_IMAGE_URL +
-              (info.backdrop_path || info.poster_path)
-            }
+            src={info.backdrop_path}
             alt={info.name}
           />
 
           <div className={styles.info}>
             <div className={styles.left}>
-              <img
-                src={process.env.NEXT_PUBLIC_TMDB_IMAGE_URL + info.poster_path}
-                alt={info.name}
-              />
+              <img src={info.poster_path} alt={info.name} />
             </div>
 
             <div className={styles.right}>
@@ -91,11 +49,11 @@ const MoviePage = async ({ params: { id } }: { params: { id: number } }) => {
 
               <p className={styles.release}>
                 <span>{info.original_title}</span>
-                <span>{getYear(info.release_date)}</span>
+                <span>{info.release_year}</span>
                 <span>{info.runtime}분</span>
                 <span>
                   <span aria-label="평점">⭐️</span>
-                  {info.vote_average.toFixed(1)}
+                  {info.vote_average}
                 </span>
               </p>
 
