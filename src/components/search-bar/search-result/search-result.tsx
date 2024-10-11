@@ -22,7 +22,7 @@ const SearchResult = ({ keyword, isActive }) => {
   const moveToDetail = useCallback((result) => {
     const { id, media_type } = result;
 
-    router.push(`/${id}/${media_type}/?tab=videos`);
+    router.push(`/${id}/${media_type}`);
     // router.push(`/movies/${id}?tab=videos`);
   }, []);
 

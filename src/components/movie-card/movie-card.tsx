@@ -12,7 +12,7 @@ interface MovieCardPropsType {
 }
 
 const MovieCard = ({ id, poster_path, title }: MovieCardPropsType) => {
-  const detailLink = `/movies/${id}?tab=videos`;
+  const detailLink = `/${id}/movie`;
 
   const router = useRouter();
   const pushRouter = () => {
