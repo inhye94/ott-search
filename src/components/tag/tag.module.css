@@ -1,0 +1,16 @@
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: var(--color-background);
+  border-radius: 4px;
+}
+
+.red {
+  background-color: rgb(233, 57, 25);
+}
+
+.gray {
+  background-color: #777;
+}
