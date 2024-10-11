@@ -1,4 +1,4 @@
-import Tag from "../tag";
+import Tag from "../../../../../src/components/tag";
 
 import styles from "./contents-info.module.css";
 

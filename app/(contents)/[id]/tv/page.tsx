@@ -1,6 +1,6 @@
 import Layout from "../../../../src/components/layout";
-import ContentsProvider from "../../../../src/components/contents-provider";
-import ContentsInfo from "../../../../src/components/contents-info";
+import ContentsProvider from "../components/contents-provider";
+import ContentsInfo from "../components/contents-info";
 
 import { useTMDB } from "../../../../src/api/tmdbDATA/useTMDB";
 
