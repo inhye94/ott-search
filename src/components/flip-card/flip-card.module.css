@@ -6,6 +6,16 @@
   perspective: 1000px;
 }
 
+.card.square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.card.round .front,
+.card.round .back {
+  border-radius: 50%;
+}
+
 .card-inner {
   position: relative;
   width: 100%;
@@ -43,4 +53,8 @@
   overflow: auto;
   transform: rotateY(180deg);
   background-color: black;
+}
+
+.back::-webkit-scrollbar {
+  display: none !important;
 }
