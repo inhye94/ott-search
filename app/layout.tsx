@@ -1,10 +1,6 @@
 import "../public/styles/main.css";
 
 import { Metadata } from "next";
-import { Navigation } from "../src/components/navigation";
-import Link from "next/link";
-import Layout from "../src/components/layout";
-import Logo from "../src/components/logo";
 import Gnb from "../src/components/gnb";
 
 export const metadata: Metadata = {
