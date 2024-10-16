@@ -6,7 +6,18 @@ import { useTMDB } from "../../../../src/api/tmdbDATA/useTMDB";
 
 import styles from "../page.module.css";
 
-const MoviePage = async ({ params: { id } }: { params: { id: number } }) => {
+import type { ParamsType } from "../../../../src/model/params";
+
+export const generateMetadata = async ({ params: { id } }: ParamsType) => {
+  const { getMovieInfo } = useTMDB();
+  const info = await getMovieInfo(id);
+
+  return {
+    title: info.title,
+  };
+};
+
+const MoviePage = async ({ params: { id } }: ParamsType) => {
   const { getMovieInfo, getMovieProvider } = useTMDB();
 
   const info = await getMovieInfo(id);

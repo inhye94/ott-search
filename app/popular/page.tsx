@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import { useTMDB } from "../../src/api/tmdbDATA/useTMDB";
 
 export const metadata: Metadata = {
-  title: "Popular",
+  title: "추천 영화",
 };
 
 export default async function PopularPage() {

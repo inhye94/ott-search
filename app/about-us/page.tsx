@@ -6,7 +6,7 @@ import Tag from "../../src/components/tag";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "About us",
+  title: "만든 개발자",
 };
 
 const AboutUsPage = () => {

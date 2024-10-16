@@ -18,7 +18,7 @@ const ContentsInfo = ({ info }) => {
 
         <div className={styles.right}>
           <div className={styles["tag-group"]}>
-            <Tag>TV</Tag>
+            <Tag>{info.media_type}</Tag>
             {info.adult && <Tag color="red">청소년 관람불가</Tag>}
           </div>
 

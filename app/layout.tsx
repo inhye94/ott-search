@@ -5,10 +5,11 @@ import Gnb from "../src/components/gnb";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | 멋진 페이지",
-    default: "Cool Movie",
+    template: "%s | 어디서 볼 수 있을까?",
+    default: "바로 여기",
   },
-  description: "나의 짱 멋진 Next.js 페이지",
+  description:
+    "나의 짱 멋진 첫 Next.js 프로젝트이자, 미디어 컨텐츠를 어디서 볼 수 있는지 검색하는 페이지.",
 };
 
 export default function RootLayout({
