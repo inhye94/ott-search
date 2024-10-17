@@ -1,62 +1,85 @@
-import styles from "./search-result.module.css";
+import { DetailedHTMLProps, OlHTMLAttributes, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTMDB } from "../../../api/tmdbDATA/useTMDB";
+import { getMedia } from "../../../utils/format";
 
-const SearchResult = ({ keyword, isActive }) => {
+import styles from "./search-result.module.css";
+
+import type { SearchItemType } from "../../../model/contents";
+
+type NativeUlProps = DetailedHTMLProps<
+  OlHTMLAttributes<HTMLUListElement>,
+  HTMLUListElement
+>;
+
+export interface SearchResultPropsType extends NativeUlProps {
+  keyword: string;
+  isActive: boolean;
+}
+
+const SearchResult = ({
+  keyword,
+  isActive,
+  ...props
+}: SearchResultPropsType) => {
   const router = useRouter();
   const { getSearchResult } = useTMDB();
 
-  const {
-    isPending,
-    isSuccess,
-    data: results,
-  } = useQuery({
+  const { isLoading, data: results } = useQuery({
     queryKey: ["search", keyword],
     queryFn: async () => {
       return getSearchResult({ query: keyword, page: 1 });
     },
   });
 
-  const moveToDetail = useCallback((result) => {
+  const pushDetailPageToHistory = useCallback((result: SearchItemType) => {
     const { id, media_type } = result;
 
     router.push(`/${id}/${media_type}`);
-    // router.push(`/movies/${id}?tab=videos`);
   }, []);
 
-  if ((!isActive && results?.length === 0) || !results) return;
+  if (!isActive && !keyword) return;
+
+  if (!keyword) {
+    return (
+      <div className={styles.list}>
+        <div className={styles.empty}>검색어를 입력해주세요.</div>
+      </div>
+    );
+  }
+
+  if (keyword && isLoading) {
+    return (
+      <div className={styles.list}>
+        <div className={styles.empty}>
+          <p>
+            <span aria-hidden="true">🔍</span> "{keyword}"에 대해 검색 중
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <ul className={styles.list}>
-      {!keyword && <div className={styles.empty}>검색어를 입력해주세요.</div>}
-
-      {keyword && isPending && (
-        <div className={styles.empty}>
-          <span aria-hidden="true">🔍</span> "{keyword}"에 대해 검색 중
-        </div>
-      )}
-
-      {keyword && isSuccess && (
-        <div className={styles.summary}>
-          <p>
-            <span aria-hidden="true">🔍</span> "{keyword}"에 대한 검색 결과
-          </p>
-          <p>총 {results.length}건</p>
-        </div>
-      )}
+    <ul className={styles.list} {...props}>
+      <div className={styles.summary}>
+        <p>
+          <span aria-hidden="true">🔍</span> "{keyword}"에 대한 검색 결과
+        </p>
+        <p>총 {results ? results.length : 0}건</p>
+      </div>
 
       {results &&
         results.map((result) => (
           <li key={result.id} className={styles.item}>
             <article
               className={styles.card}
-              onClick={() => moveToDetail(result)}
+              onClick={() => pushDetailPageToHistory(result)}
             >
               <div className={styles.left}>
                 {result.poster_path ? (
-                  <img src={result.poster_path} alt={result.name} />
+                  <img src={result.poster_path} alt={result.title} />
                 ) : (
                   <div>no poster</div>
                 )}
@@ -74,15 +97,6 @@ const SearchResult = ({ keyword, isActive }) => {
         ))}
     </ul>
   );
-};
-
-const getMedia = (media) => {
-  const mediaObject = {
-    tv: "tv",
-    movie: "영화",
-  };
-
-  return mediaObject[media];
 };
 
 export default SearchResult;
