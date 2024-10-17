@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-
-import styles from "./search-form.module.css";
 import { debounce } from "lodash";
 
-const SearchForm = ({ onChange, onActive }) => {
+import styles from "./search-form.module.css";
+
+export interface SearchFormPropsType {
+  onChange: (text: string) => void;
+  onActive: (status: boolean) => void;
+}
+
+const SearchForm = ({ onChange, onActive }: SearchFormPropsType) => {
   const input = useRef<HTMLInputElement>(null);
   const [text, setText] = useState<string>("");
 
