@@ -168,14 +168,14 @@ export type ProviderType = (
   params?: {}
 ) => Promise<ProviderItemType>;
 
-interface ProviderInfoType {
+export interface ProviderInfoType {
   logo_path: string;
   provider_id: number;
   provider_name: string;
   display_priority: number;
 }
 
-interface ProviderItemType {
+export interface ProviderItemType {
   link?: string;
   rent?: ProviderInfoType[];
   buy?: ProviderInfoType[];

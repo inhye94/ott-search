@@ -1,6 +1,15 @@
+import {
+  ProviderInfoType,
+  ProviderItemType,
+} from "../../../../../src/model/contents";
+import { fullImagePath } from "../../../../../src/utils/format";
 import styles from "./contents-provider.module.css";
 
-const ContentsProvider = ({ providers }) => {
+export interface ContentsProviderPropsType {
+  providers?: ProviderItemType;
+}
+
+const ContentsProvider = ({ providers }: ContentsProviderPropsType) => {
   if (!providers) {
     return (
       <p className={styles.empty}>아쉽지만 콘텐츠를 제공하는 곳이 없습니다.</p>
@@ -19,14 +28,11 @@ const ContentsProvider = ({ providers }) => {
             </h4>
 
             <ul className={styles.list}>
-              {providers[type].map((provider) => (
+              {providers[type].map((provider: ProviderInfoType) => (
                 <li key={provider.provider_id} className={styles.item}>
                   <div className={styles.card}>
                     <img
-                      src={
-                        process.env.NEXT_PUBLIC_TMDB_IMAGE_URL +
-                        provider.logo_path
-                      }
+                      src={fullImagePath(provider.logo_path)}
                       alt={provider.provider_name}
                     />
                     <strong>{provider.provider_name}</strong>
