@@ -1,12 +1,15 @@
 import classNames from "classnames";
 import styles from "./layout.module.css";
-import { Attributes, PropsWithChildren } from "react";
+import { HTMLAttributes, ReactElement } from "react";
 
-const Layout: React.FC<PropsWithChildren<{ className?: string }>> = ({
-  children,
-  className,
-  ...props
-}) => {
+type NativeDivProps = HTMLAttributes<HTMLDivElement>;
+
+export interface LayoutPropsType extends NativeDivProps {
+  className?: string;
+  children: React.ReactNode;
+}
+
+const Layout = ({ children, className, ...props }: LayoutPropsType) => {
   return (
     <div className={classNames(styles.container, className)} {...props}>
       {children}
