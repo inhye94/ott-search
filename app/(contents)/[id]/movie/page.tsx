@@ -39,7 +39,7 @@ const MoviePage = async ({ params: { id } }: ParamsType) => {
         <Layout>
           <h4 className={styles.title}>영화 정보</h4>
 
-          <ContentsInfo info={info} />
+          <ContentsInfo info={info} media="영화" />
         </Layout>
       </section>
     </article>

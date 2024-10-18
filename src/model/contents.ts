@@ -65,7 +65,7 @@ export interface MovieInfoResponseType {
   vote_average: number;
   vote_count: number;
   release_year?: string;
-  media_type?: string;
+  media_type?: "영화" | "TV";
 }
 
 // NOTE: TV

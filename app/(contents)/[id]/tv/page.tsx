@@ -39,7 +39,7 @@ const TvPage = async ({ params: { id } }: ParamsType) => {
         <Layout>
           <h4 className={styles.title}>프로그램 정보</h4>
 
-          <ContentsInfo info={info} />
+          <ContentsInfo info={info} media="TV" />
         </Layout>
       </section>
     </article>

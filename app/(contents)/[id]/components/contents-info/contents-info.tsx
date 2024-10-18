@@ -1,19 +1,37 @@
 import Tag from "../../../../../src/components/tag";
+import {
+  MovieInfoResponseType,
+  TvInfoResponseType,
+} from "../../../../../src/model/contents";
 
 import styles from "./contents-info.module.css";
 
-const ContentsInfo = ({ info }) => {
+type MediaType = MovieInfoResponseType["media_type"];
+
+type ContentsInfoPropsType<T extends MediaType> = T extends "영화"
+  ? MovieInfoResponseType
+  : TvInfoResponseType;
+
+interface ContentInfoType<T extends MediaType> {
+  info: ContentsInfoPropsType<T>;
+  media: T;
+}
+
+const ContentsInfo = <T extends MediaType>({
+  info,
+  media,
+}: ContentInfoType<T>) => {
   return (
     <>
       <img
         className={styles.backdrop}
         src={info.backdrop_path}
-        alt={info.name}
+        alt={info.title}
       />
 
       <div className={styles.info}>
         <div className={styles.left}>
-          <img src={info.poster_path} alt={info.name} />
+          <img src={info.poster_path} alt={info.title} />
         </div>
 
         <div className={styles.right}>
@@ -27,7 +45,7 @@ const ContentsInfo = ({ info }) => {
           <p className={styles.release}>
             <span>{info.original_title}</span>
             <span>{info.release_year}</span>
-            {info.number_of_episodes && (
+            {"number_of_episodes" in info && info.number_of_episodes && (
               <span>총 {info.number_of_episodes}편</span>
             )}
             <span>
@@ -48,7 +66,7 @@ const ContentsInfo = ({ info }) => {
 
           {info.tagline && <p className={styles.tagline}>{info.tagline}</p>}
 
-          {info.networks && (
+          {"networks" in info && info.networks && (
             <div className={styles.streaming}>
               스트리밍
               {info.networks.map((streaming) => (
