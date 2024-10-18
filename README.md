@@ -4,6 +4,7 @@
 
 - 시작: 2024.10.01 ~ 2024.10.11
 - 규모: 개인 프로젝트
+- 링크: [프로젝트 링크](https://movie-nextjs-project.vercel.app/)
 - 목적
   - client 컴포넌트와 server 컴포넌트를 구분해서 페이지를 설계하고, 검색 최적화를 구현하자
 - 프로젝트 기술스택
@@ -460,4 +461,3 @@ const ContentsInfo = <T extends MediaType>({
 <img width="602" alt="스크린샷 2024-10-18 오후 1 44 46" src="https://github.com/user-attachments/assets/bef2c91f-233f-4277-87cb-df6d9a4d71d6">
 
 <img width="571" alt="스크린샷 2024-10-18 오후 1 45 02" src="https://github.com/user-attachments/assets/e8a7c17e-9f6c-4910-b31f-5dfce75febc1">
-
