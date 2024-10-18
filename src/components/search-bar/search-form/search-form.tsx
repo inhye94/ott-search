@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { debounce } from "lodash";
 
 import styles from "./search-form.module.css";
@@ -19,10 +19,6 @@ const SearchForm = ({ onChange, onActive }: SearchFormPropsType) => {
     []
   );
 
-  useEffect(() => {
-    debounceUpdate(input.current.value);
-  }, [text]);
-
   return (
     <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
       <input
@@ -30,7 +26,10 @@ const SearchForm = ({ onChange, onActive }: SearchFormPropsType) => {
         className={styles.input}
         type="text"
         placeholder="영화, 드라마 검색"
-        onInput={() => setText(input.current.value)}
+        onInput={() => {
+          setText(input.current.value);
+          debounceUpdate(input.current.value);
+        }}
         onFocus={() => onActive(true)}
         onBlur={() => onActive(false)}
         value={text}
