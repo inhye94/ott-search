@@ -8,19 +8,19 @@ import styles from "./contents-info.module.css";
 
 type MediaType = MovieInfoResponseType["media_type"];
 
-type ContentsInfoPropsType<T extends MediaType> = T extends "영화"
+type ContentInfoType<T extends MediaType> = T extends "영화"
   ? MovieInfoResponseType
   : TvInfoResponseType;
 
-interface ContentInfoType<T extends MediaType> {
-  info: ContentsInfoPropsType<T>;
+interface ContentsInfoPropsType<T extends MediaType> {
+  info: ContentInfoType<T>;
   media: T;
 }
 
 const ContentsInfo = <T extends MediaType>({
   info,
   media,
-}: ContentInfoType<T>) => {
+}: ContentsInfoPropsType<T>) => {
   return (
     <>
       <img
