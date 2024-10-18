@@ -456,3 +456,8 @@ const ContentsInfo = <T extends MediaType>({
   );
 };
 ```
+
+<img width="602" alt="스크린샷 2024-10-18 오후 1 44 46" src="https://github.com/user-attachments/assets/bef2c91f-233f-4277-87cb-df6d9a4d71d6">
+
+<img width="571" alt="스크린샷 2024-10-18 오후 1 45 02" src="https://github.com/user-attachments/assets/e8a7c17e-9f6c-4910-b31f-5dfce75febc1">
+
