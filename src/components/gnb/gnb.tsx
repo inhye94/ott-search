@@ -11,8 +11,13 @@ const Gnb = () => {
         <Logo />
 
         <nav className={styles.left}>
-          <h3 className="visually-hidden">메뉴</h3>
-          <Link href="/popular">추천</Link>
+          <h2 className="visually-hidden">메뉴</h2>
+
+          <ul className={styles.list}>
+            <li>
+              <Link href="/popular">추천</Link>
+            </li>
+          </ul>
         </nav>
 
         <div className={styles.right}>
