@@ -4,7 +4,7 @@
 
 - 시작: 2024.10.01 ~ 2024.10.11
 - 규모: 개인 프로젝트
-- 링크: [프로젝트 링크](https://movie-nextjs-project.vercel.app/)
+- 링크: [프로젝트 링크](https://ott-search.vercel.app/)
 - 목적
   - client 컴포넌트와 server 컴포넌트를 구분해서 페이지를 설계하고, 검색 최적화를 구현하자
 - 프로젝트 기술스택
