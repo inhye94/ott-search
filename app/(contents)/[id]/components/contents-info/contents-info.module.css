@@ -20,6 +20,7 @@
 .left {
   flex-shrink: 0;
   width: 100%;
+  aspect-ratio: 2 / 3;
   border-radius: 4px;
   overflow: hidden;
 }
