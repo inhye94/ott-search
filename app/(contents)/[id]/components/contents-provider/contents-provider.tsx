@@ -33,7 +33,7 @@ const ContentsProvider = ({ providers }: ContentsProviderPropsType) => {
                   <div className={styles.card}>
                     <img
                       src={fullImagePath(provider.logo_path)}
-                      alt={provider.provider_name}
+                      alt={`${provider.provider_name}의 로고`}
                     />
                     <strong>{provider.provider_name}</strong>
                   </div>
