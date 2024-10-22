@@ -3,6 +3,10 @@
 }
 
 .card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: center;
   border-radius: 12px;
   filter: brightness(70%);
   transition: filter 150ms ease-in-out;
