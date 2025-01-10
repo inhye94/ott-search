@@ -44,7 +44,7 @@
 | ![About 페이지](https://github.com/user-attachments/assets/7269bb2a-bf1d-418f-8342-66cf7b8710ca) |
 | - 개발자 소개 및 TMI<br/> - 깃허브 링크 포함                                                     |
 
-## 트러블 슈팅
+## 트러블 슈팅
 
 ### 검색 최적화
 
